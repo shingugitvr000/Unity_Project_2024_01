@@ -29,6 +29,19 @@ public class EnemyController : MonoBehaviour
                 Vector3 direction = (player.position - transform.position).normalized; //이동 방향성 (플레이어와 이 오브젝트(적))
                 body.MovePosition(transform.position + direction * moveSpeed * Time.deltaTime); //방향성 계산된것을 반영
             }
+            //포탑 회전 소스 코드 
+            Vector3 targetDirection = (player.position - Pivot.transform.position).normalized;  //포탑의 방향성 계산
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+            //계산된 회전값을 반영
+            Pivot.transform.rotation = Quaternion.Lerp(Pivot.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime); 
+
+            //총알 발사
+
+            if(Time.time > nextFireTime) 
+            {
+                nextFireTime = Time.time + 1f / fireRate;       //시간대비 쏘는 횟수 
+                Instantiate(projectile, firePoint.transform.position, firePoint.transform.rotation);
+            }
         }
     }
 }
