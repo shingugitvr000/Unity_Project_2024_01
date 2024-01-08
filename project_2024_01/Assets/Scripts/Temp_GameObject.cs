@@ -25,21 +25,25 @@ public class Temp_GameObject : MonoBehaviour
     }
     public void MoveCube()              //Cube 이동을 위한 함수 선언                    
     {
-        if (Input.GetKey(KeyCode.UpArrow))     
-        {   //Vector3(X,Y,Z)
-            transform.position += new Vector3(0.0f, moveSpeed * Time.deltaTime, 0.0f);
-        }
-        if (Input.GetKey(KeyCode.DownArrow))    
-        {  
-            transform.position += new Vector3(0.0f, -moveSpeed * Time.deltaTime, 0.0f);
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))    
-        { 
-            transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0.0f, 0.0f);
-        }
-        if (Input.GetKey(KeyCode.RightArrow))   
-        {  
-            transform.position += new Vector3(moveSpeed * Time.deltaTime, 0.0f, 0.0f);
-        }
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+
+        transform.position += move * Time.deltaTime * moveSpeed;
+
+        //if (Input.GetKey(KeyCode.UpArrow))
+        //{   //Vector3(X,Y,Z)
+        //    transform.position += new Vector3(0.0f, moveSpeed * Time.deltaTime, 0.0f);
+        //}
+        //if (Input.GetKey(KeyCode.DownArrow))
+        //{
+        //    transform.position += new Vector3(0.0f, -moveSpeed * Time.deltaTime, 0.0f);
+        //}
+        //if (Input.GetKey(KeyCode.LeftArrow))
+        //{
+        //    transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0.0f, 0.0f);
+        //}
+        //if (Input.GetKey(KeyCode.RightArrow))
+        //{
+        //    transform.position += new Vector3(moveSpeed * Time.deltaTime, 0.0f, 0.0f);
+        //}
     }
 }
