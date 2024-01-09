@@ -46,7 +46,8 @@ public class EnemyController : MonoBehaviour
             if(Time.time > nextFireTime) 
             {
                 nextFireTime = Time.time + 1f / fireRate;       //시간대비 쏘는 횟수 
-                Instantiate(projectile, firePoint.transform.position, firePoint.transform.rotation);
+                GameObject temp = (GameObject)Instantiate(projectile, firePoint.transform.position, firePoint.transform.rotation);
+                temp.GetComponent<ProjectileMove>().projectileType = ProjectileMove.PROJECTILETYPE.ENEMY;   //발사체에 적이 쏜 총알이라고 이름을 만들어줌
             }
         }
     }
