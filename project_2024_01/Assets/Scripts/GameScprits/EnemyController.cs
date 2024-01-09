@@ -14,9 +14,15 @@ public class EnemyController : MonoBehaviour
     private Rigidbody body;
     private Transform player;
     private float nextFireTime;
+
+    public int maxHp;
+    public int currentHP;
   
     void Start()
     {
+        maxHp = 3;
+        currentHP = 3;
+
         body = GetComponent<Rigidbody>();       //지금 오브젝트의 RigidBody를 가져옴
         player = GameObject.FindGameObjectWithTag("Player").transform;      //Player Tag를 가지고 있는 오브젝트 tranform을 입력
     }   
