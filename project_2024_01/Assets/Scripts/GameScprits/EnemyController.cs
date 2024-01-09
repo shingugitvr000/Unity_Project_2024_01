@@ -17,7 +17,28 @@ public class EnemyController : MonoBehaviour
 
     public int maxHp;
     public int currentHP;
-  
+
+    public GameObject[] dropitems = new GameObject[2];
+
+    public void DropItems()
+    {
+        int RandNumer = Random.Range(0, 100);       // 0 ~ 99의 랜덤 값을 리턴 
+
+        if(RandNumer >= 0 && RandNumer < 50)        // 0 ~ 50 이전까지 50% 확률로 1번째 아이템 드랍
+        {
+            GameObject temp = (GameObject)Instantiate(dropitems[0], transform.position, Quaternion.identity);            
+        }
+        else if (RandNumer >= 50 && RandNumer < 70)  // 50 ~ 70 이전까지 20% 확률로 2번째 아이템 드랍
+        {
+            GameObject temp = (GameObject)Instantiate(dropitems[1], transform.position, Quaternion.identity);
+        }
+        else
+        {
+            //이 외에는 따로 행동 없음 
+        }
+
+    }
+
     void Start()
     {
         maxHp = 3;

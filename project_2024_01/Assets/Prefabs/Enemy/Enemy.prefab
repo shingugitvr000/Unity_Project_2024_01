@@ -104,6 +104,9 @@ MonoBehaviour:
   fireRate: 1
   maxHp: 0
   currentHP: 0
+  dropitems:
+  - {fileID: 118045230503772234, guid: f41a78ecd8540b5409aff4949c915531, type: 3}
+  - {fileID: 8557295960449172186, guid: 3eacc1e10dbfdbf4f9ede628a4fbfd4d, type: 3}
 --- !u!1 &1700387579291123960
 GameObject:
   m_ObjectHideFlags: 0
