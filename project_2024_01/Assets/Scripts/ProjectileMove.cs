@@ -44,9 +44,9 @@ public class ProjectileMove : MonoBehaviour         //총알 클래스 설정
             Vector3 point = other.ClosestPoint(transform.position);     //충돌이 일어난 포인트 
             GameObject tempVFX = (GameObject)Instantiate(VFX_Fire_B, point, Quaternion.identity);   //충돌이 일어난 포인트에 이펙트 추가
 
-            other.gameObject.GetComponent<PlayerController>().currentHp -= damage;
+            GameManager.Instance.currentHp -= damage;
 
-            if (other.gameObject.GetComponent<PlayerController>().currentHp <= 0)
+            if (GameManager.Instance.currentHp <= 0)
             {
                 Instantiate(VFX_WW_Explosion, point, Quaternion.identity);   //플레이어가 파괴 되는 이펙트를 준다. 
                 Destroy(other.gameObject);

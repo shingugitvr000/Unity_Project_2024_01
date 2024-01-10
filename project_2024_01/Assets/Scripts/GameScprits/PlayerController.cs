@@ -9,16 +9,10 @@ public class PlayerController : MonoBehaviour
     public Camera viewCamera;           //메인 카메라를 받아오는 Camera 오브젝트
     public Vector3 velocity;            //이동 값
     public Rigidbody body;              //물리 효과를 주는 강체 값을 가져온다. 
-
-    public int maxHp;
-    public int currentHp;
-    public int currentExp;
-
+    
     void Start()
     {
-        maxHp = 1000;
-        currentHp = 1000;
-        currentExp = 0;
+        
 
         viewCamera = Camera.main;           //스트립트가 시작될때 카메라를 받아온다.
     }    
@@ -49,17 +43,17 @@ public class PlayerController : MonoBehaviour
             //Trigger 들어온 Item이 Box_HP 일 경우 
             if(other.gameObject.GetComponent<ItemController>().itemtype == ItemController.ITEMTYPE.HP_ITEM)
             {
-                currentHp += other.gameObject.GetComponent<ItemController>().amount;        //아이템에 있는 값(amount)을 Hp에 더한다. 
-                if(currentHp > maxHp)   //최대 HP 보다 높아질 경우 
+                GameManager.Instance.currentHp += other.gameObject.GetComponent<ItemController>().amount;        //아이템에 있는 값(amount)을 Hp에 더한다. 
+                if(GameManager.Instance.currentHp > GameManager.Instance.maxHp)   //최대 HP 보다 높아질 경우 
                 {
-                    currentHp = maxHp;  //최대 Hp로 만든다. 
+                    GameManager.Instance.currentHp = GameManager.Instance.maxHp;  //최대 Hp로 만든다. 
                 }
             }
 
             //Trigger 들어온 Item이 Box_Exp 일 경우 
             if (other.gameObject.GetComponent<ItemController>().itemtype == ItemController.ITEMTYPE.EXP_ITEM)
             {
-                currentExp += other.gameObject.GetComponent<ItemController>().amount;        //아이템에 있는 값(amount)을 Exp에 더한다. 
+                GameManager.Instance.currentExp += other.gameObject.GetComponent<ItemController>().amount;        //아이템에 있는 값(amount)을 Exp에 더한다. 
             }
 
             Destroy(other.gameObject);
