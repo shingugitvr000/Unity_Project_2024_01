@@ -1,20 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static GameManager;
 
 public class SystemManager : MonoBehaviour
 {
-    public float roundTime = 0.0f;
-    public float roundEndTime = 30.0f;
+    public enum ROUNDTYPE : int
+    {
+        NORMAL,
+        BOSS
+    }
 
-    public float spawnTime = 0.0f;
-    public float nextspawnTime = 2.0f;
+    public ROUNDTYPE roundtype = ROUNDTYPE.NORMAL;      //라운드 타입을 설정
 
-    public GameObject[] EnemyObjects;
-    public Transform[] spawntransform;
+    public int roundindex = 1;                  //라운드 순서
+    public float roundTime = 0.0f;              //라운드 시간 타입
+    public float roundEndTime = 30.0f;          //라운드 끝 시간
 
-    public GameObject player;
+    public float spawnTime = 0.0f;              //스폰 시간 
+    public float nextspawnTime = 2.0f;          //다음 스폰 시간 설정
+
+    public GameObject[] EnemyBossObjects;       //보스 오브젝트
+    public GameObject[] EnemyObjects;           //적 오브젝트 배열
+    public Transform[] spawntransform;          //스폰 위치 오브젝트 배열
+
+    public GameObject EnemyBossCheck;           //보스 체크용
+
+    public GameObject player;                   //플레이어 체크용
 
     // Update is called once per frame
     void Update()
@@ -23,8 +36,39 @@ public class SystemManager : MonoBehaviour
 
         if (player != null)
         {
-            spawnTime += Time.deltaTime;
-            if(nextspawnTime <= spawnTime)
+
+            if(roundtype == ROUNDTYPE.NORMAL)       //노말Type 인 상태에서만 시간이 지나가게 함
+            {
+                spawnTime += Time.deltaTime;
+                roundTime += Time.deltaTime;
+            }
+            else if (roundtype == ROUNDTYPE.BOSS)
+            {
+                if(EnemyBossCheck == null)
+                {
+                    roundtype = ROUNDTYPE.NORMAL;
+                    roundindex += 1;
+                    if(EnemyBossObjects.Length < roundindex)
+                    {
+                        roundindex = EnemyBossObjects.Length;
+                    }
+                }
+            }
+
+            if (roundEndTime <= roundTime)
+            {
+               
+                int SpawntransformCount = spawntransform.Length;        //등록한 스폰 포인트의 갯수를 가져온다.              
+                int RandSpawntransformNumer = Random.Range(0, SpawntransformCount); //가져온 숫자를 최대로 놓고 랜덤 숫자를 생성 
+
+                GameObject temp = (GameObject)Instantiate(
+                    EnemyBossObjects[roundindex - 1], spawntransform[RandSpawntransformNumer].position, Quaternion.identity);
+                EnemyBossCheck = temp;                          //보스 체크용으로   
+                roundTime = 0.0f;                               //시간 초기화
+                roundtype = ROUNDTYPE.BOSS;                     //보스 타입으로 변경
+            }
+
+            if (nextspawnTime <= spawnTime)
             {
                 spawnTime = 0.0f;
                 nextspawnTime = Random.Range(0.5f, 2.0f);   //랜덤으로 다음 스폰 시간을 설정한다. 
