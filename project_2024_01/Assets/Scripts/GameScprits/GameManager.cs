@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     //플레이어 데이터 
     public int maxHp = 100;
     public int currentHp = 100;
+    public int level = 1;
+    public int[] levelUpExp = new int[30];                //30레벨 까지 설정 
     public int currentExp = 0;
     public float moveSpeed = 10.0f;
 
@@ -27,5 +29,26 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void ExpUp(int amount)
+    {
+        if (level == levelUpExp.Length) return;     //최대 레벨에 도달 했을 경우 그냥 리턴 
+
+        currentExp += amount;                       //경험치를 Up 시킨다.
+        LevelUpCheck();                             //레벨 업 체크를 한다.
+    }
+    public void LevelUpCheck()                      //레벨 업 체크 함수
+    {
+        if(currentExp >= levelUpExp[level - 1])     //기존 경험치가 필요 경험치보다 클 경우
+        {
+            currentExp -= levelUpExp[level - 1];    //레벨업에 대한 경험치를 뺀 이후
+            level += 1;                             //레벨 업을 시켜준다. 
+
+            if(level >= levelUpExp.Length)          //최대 레벨 이상 안올라가게 막아줘서 에러를 피한다. 
+            {
+                level = levelUpExp.Length;
+            }           
+        }
     }
 }

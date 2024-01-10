@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
-{
-    public float moveSpeed = 10.0f;
+{    
     public GameObject pivot;
     public Camera viewCamera;           //메인 카메라를 받아오는 Camera 오브젝트
     public Vector3 velocity;            //이동 값
@@ -19,7 +18,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //방향키를 통해서 이동 벡터값을 생성한다. 
-        velocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized * moveSpeed;
+        velocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized * GameManager.Instance.moveSpeed;
 
         //화면에서 -> 게임 3D 공간 좌표를 변환해서 Vector3에 넣는다. 
         Vector3 mousePos = viewCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
@@ -53,7 +52,7 @@ public class PlayerController : MonoBehaviour
             //Trigger 들어온 Item이 Box_Exp 일 경우 
             if (other.gameObject.GetComponent<ItemController>().itemtype == ItemController.ITEMTYPE.EXP_ITEM)
             {
-                GameManager.Instance.currentExp += other.gameObject.GetComponent<ItemController>().amount;        //아이템에 있는 값(amount)을 Exp에 더한다. 
+                GameManager.Instance.ExpUp(other.gameObject.GetComponent<ItemController>().amount);        //아이템에 있는 값(amount)을 Exp에 더한다. 
             }
 
             Destroy(other.gameObject);
