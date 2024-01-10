@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GameManager;
 
 public class ProjectileMove : MonoBehaviour         //총알 클래스 설정
 {
@@ -57,6 +58,8 @@ public class ProjectileMove : MonoBehaviour         //총알 클래스 설정
     
     void Update()
     {
+        if (GameManager.Instance.gameStation != GAMESTATION.PLAY) return;
+
         transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed);  //총알이 Z축 앞방향으로 이동하게 
 
         lifeTime -= Time.deltaTime;                                         //초를 설정하여 시간 확인

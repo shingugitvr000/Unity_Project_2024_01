@@ -6,13 +6,28 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;                 //간단한 싱글톤 화
 
-    //플레이어 데이터 
-    public int maxHp = 100;
+    public enum GAMESTATION : int
+    {
+        READY,
+        PLAY = 10,
+        STOP,
+        LEVELUPUI = 20,
+        END = 30
+    }
+
+    //플레이어 데이터     
     public int currentHp = 100;
     public int level = 1;
     public int[] levelUpExp = new int[30];                //30레벨 까지 설정 
     public int currentExp = 0;
+
+    //플레이어 업그레이드 요소
+    public int maxHp = 100;
     public float moveSpeed = 10.0f;
+    public float fireSpeed = 4.0f;
+    public int playerPower = 1;
+
+    public GAMESTATION gameStation = GAMESTATION.READY;
 
     private void Awake()
     {

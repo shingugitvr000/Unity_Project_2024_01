@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GameManager;
 
 public class PlayerController : MonoBehaviour
 {    
@@ -17,6 +18,8 @@ public class PlayerController : MonoBehaviour
     }    
     void Update()
     {
+        if (GameManager.Instance.gameStation != GAMESTATION.PLAY) return;
+
         //방향키를 통해서 이동 벡터값을 생성한다. 
         velocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized * GameManager.Instance.moveSpeed;
 

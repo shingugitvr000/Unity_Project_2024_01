@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GameManager;
 
 public class EnemyController : MonoBehaviour
 {
@@ -46,9 +47,11 @@ public class EnemyController : MonoBehaviour
 
         body = GetComponent<Rigidbody>();       //지금 오브젝트의 RigidBody를 가져옴
         player = GameObject.FindGameObjectWithTag("Player").transform;      //Player Tag를 가지고 있는 오브젝트 tranform을 입력
-    }   
+    }
     void Update()
     {
+        if (GameManager.Instance.gameStation != GAMESTATION.PLAY) return;
+
         if(player != null)      //Player 가 있을때 만 업데이트 문을 사용해서 동작
         {
             if (Vector3.Distance(player.position, transform.position) > 5.0f) //Vector3.Distance 유니티에서 제공하는 거리 계산 함수 
