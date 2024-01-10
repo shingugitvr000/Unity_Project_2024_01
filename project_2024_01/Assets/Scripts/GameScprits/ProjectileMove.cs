@@ -29,7 +29,7 @@ public class ProjectileMove : MonoBehaviour         //총알 클래스 설정
             Vector3 point = other.ClosestPoint(transform.position);     //충돌이 일어난 포인트 
             GameObject tempVFX = (GameObject)Instantiate(VFX_Fire_B, point ,Quaternion.identity);   //충돌이 일어난 포인트에 이펙트 추가
 
-            other.gameObject.GetComponent<EnemyController>().currentHP -= damage;
+            other.gameObject.GetComponent<EnemyController>().currentHP -= GameManager.Instance.playerPower;
 
             if(other.gameObject.GetComponent<EnemyController>().currentHP <= 0)
             {

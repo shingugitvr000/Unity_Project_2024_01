@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GameManager;
 
 public class SystemManager : MonoBehaviour
 {
@@ -17,7 +18,9 @@ public class SystemManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    { 
+    {
+        if (GameManager.Instance.gameStation != GAMESTATION.PLAY) return;
+
         if (player != null)
         {
             spawnTime += Time.deltaTime;

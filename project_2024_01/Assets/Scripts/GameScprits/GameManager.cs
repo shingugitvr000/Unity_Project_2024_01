@@ -34,18 +34,49 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void HpLevelUp()
     {
-        
+        maxHp += 10;
+        GameUIManager.Instance.levelUpPanel_OnOff(false);
+        gameStation = GAMESTATION.PLAY;
+    }
+    public void moveSpeedLevelUp()
+    {
+        moveSpeed += 0.1f;
+        GameUIManager.Instance.levelUpPanel_OnOff(false);
+        gameStation = GAMESTATION.PLAY;
+    }
+    public void fireSpeedLevelUp()
+    {
+        fireSpeed += 0.5f;
+        GameUIManager.Instance.levelUpPanel_OnOff(false);
+        gameStation = GAMESTATION.PLAY;
+    }
+    public void PowerLevelUp()
+    {
+        playerPower += 1;
+        GameUIManager.Instance.levelUpPanel_OnOff(false);
+        gameStation = GAMESTATION.PLAY;
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void Start()
     {
-        
+        GameUIManager.Instance.levelUpPanel_OnOff(false);       //시작시 LevelUp 패널을 Off 시킨다.
     }
 
+    public void GamePlay()                          //게임 플레이 상태로 전환
+    {
+        gameStation = GAMESTATION.PLAY;
+    }
+    public void GamePlayStop()                      //게임 멈춤 상태로 전환
+    {
+        gameStation = GAMESTATION.STOP;
+    }
+    public void GamePlayLevelUp()                   //게임 레벨 업 상태로 전환
+    {
+        gameStation = GAMESTATION.LEVELUPUI;
+    }
     public void ExpUp(int amount)
     {
         if (level == levelUpExp.Length) return;     //최대 레벨에 도달 했을 경우 그냥 리턴 
@@ -63,7 +94,9 @@ public class GameManager : MonoBehaviour
             if(level >= levelUpExp.Length)          //최대 레벨 이상 안올라가게 막아줘서 에러를 피한다. 
             {
                 level = levelUpExp.Length;
-            }           
+            }
+            GameUIManager.Instance.levelUpPanel_OnOff(true);
+            gameStation = GAMESTATION.LEVELUPUI;
         }
     }
 }

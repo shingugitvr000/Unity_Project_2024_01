@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
         if (GameManager.Instance.gameStation != GAMESTATION.PLAY) return;
 
         //방향키를 통해서 이동 벡터값을 생성한다. 
-        velocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized * GameManager.Instance.moveSpeed;
+        velocity = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized * GameManager.Instance.moveSpeed;
 
         //화면에서 -> 게임 3D 공간 좌표를 변환해서 Vector3에 넣는다. 
         Vector3 mousePos = viewCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (GameManager.Instance.gameStation != GAMESTATION.PLAY) return;
+
         body.MovePosition(body.position + velocity * Time.fixedDeltaTime);
     }
 
