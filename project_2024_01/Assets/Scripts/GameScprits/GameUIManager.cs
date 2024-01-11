@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using static GameManager;
+using System.Xml;
 
 public class GameUIManager : MonoBehaviour
 {
@@ -21,12 +22,41 @@ public class GameUIManager : MonoBehaviour
     public TMP_Text tmptextUI_Player_FireSpeed;
     public TMP_Text tmptextUI_Player_Power;
 
+    //3,2,1 연출 폰트
+    public GameObject[] tmptext = new GameObject[3];
+
+
     public GameObject levelUpPanel;                 //LevelUp 패널을 관리
     public GameObject gameUIPanel;
     public bool gameUIOnoffFlag;                    //패널 키고 끄는 Bool
     private void Awake()
     {
         Instance = this;
+    }
+    public void Start()
+    {
+        StartCoroutine(StartRoutine());             //연출 코루틴 시작
+    }
+    IEnumerator StartRoutine()                          //연출 코루틴 제작
+    {
+        tempTextOff();
+        tmptext[0].SetActive(true);
+        yield return new WaitForSeconds(1.0f);
+        tempTextOff();
+        tmptext[1].SetActive(true);
+        yield return new WaitForSeconds(1.0f);
+        tempTextOff();
+        tmptext[2].SetActive(true);
+        yield return new WaitForSeconds(1.0f);
+        tempTextOff();
+        GameManager.Instance.gameStation = GAMESTATION.PLAY;
+    }
+    public void tempTextOff()                   //연출을 위해 모든 폰트를 끄는 함수
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            tmptext[i].SetActive(false);
+        }
     }
     public void levelUpPanel_OnOff(bool temp)           //LevelUp 패널 OnOff 함수 제작 
     {

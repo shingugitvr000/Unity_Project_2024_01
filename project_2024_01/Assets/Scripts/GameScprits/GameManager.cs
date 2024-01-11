@@ -109,7 +109,9 @@ public class GameManager : MonoBehaviour
 
     IEnumerator GameOverRoutine()               //코루틴을 선언 
     {
-        yield return new WaitForSeconds(2.0f);  //2초 이후에 해당 내용 동작 
+        yield return new WaitForSeconds(1.0f);  //1초 이후에 해당 내용 동작 
+        TransitionController.instance.FadeInOut();          //페이드 인아웃 시작
+        yield return new WaitForSeconds(1.0f);  //1초 이후에 해당 내용 동작 
         SceneManager.LoadScene("TitleScene");   //2초 이후에 타이틀 화면으로 이동
     }
 }

@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.SceneManagement;
-using static GameManager;
 using UnityEngine.SceneManagement;
+using static GameManager;
 
 public class PlayerController : MonoBehaviour
 {    
@@ -68,6 +67,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (GameManager.Instance != null)
         GameManager.Instance.GameOver();
     }
 }
