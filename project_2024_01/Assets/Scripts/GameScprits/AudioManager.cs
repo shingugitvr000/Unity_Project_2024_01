@@ -31,6 +31,10 @@ public class AudioManager : MonoBehaviour
 
     const string MIXER_MUSIC = "MusicVolume";           //사용할 Param 값 (Music)
     const string MIXER_SFX = "SFXVolume";               //사용할 Param 값 (SFX)
+
+    //오디오 패널 설정
+    public GameObject AudioPanel;
+
     private void Awake()
     {
         if (instance == null)
@@ -84,5 +88,10 @@ public class AudioManager : MonoBehaviour
         {            
             sfxSource.PlayOneShot(sound.clip);                         //일반 Play 재생
         }
+    }
+
+    public void PanelOnOff(bool type)                                   //오디오 옵션 패널
+    {
+        AudioPanel.SetActive(type);                                     //패널을 키고 끈다. 
     }
 }
