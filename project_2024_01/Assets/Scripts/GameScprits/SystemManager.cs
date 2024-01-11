@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static GameManager;
@@ -88,8 +89,15 @@ public class SystemManager : MonoBehaviour
 
             if (player.transform.position.y < -50.0f)        //position 의 y 값을 조회는 가능 직접 입력 불가 (Vector3로만 데이터 입력 가능)
             {
-                player.transform.position = Vector3.zero + new Vector3(0.0f, 1.0f, 0.0f);   //Vector3.zero => new Vector3(0.0f,0.0f,0.0f)
-                player.transform.rotation = Quaternion.identity;    //Quaternion.identity => new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+                GameManager.Instance.currentHp -= GameManager.Instance.currentHp;
+
+                if (GameManager.Instance.currentHp <= 0)
+                {                    
+                    AudioManager.instance.PlaySFX("Explosion");
+                    Destroy(player.gameObject);
+                }
+                //player.transform.position = Vector3.zero + new Vector3(0.0f, 1.0f, 0.0f);   //Vector3.zero => new Vector3(0.0f,0.0f,0.0f)
+                //player.transform.rotation = Quaternion.identity;    //Quaternion.identity => new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
             }
         }
     }

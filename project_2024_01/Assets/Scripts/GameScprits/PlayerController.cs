@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor.SceneManagement;
 using static GameManager;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {    
@@ -62,5 +64,10 @@ public class PlayerController : MonoBehaviour
 
             Destroy(other.gameObject);
         }
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.GameOver();
     }
 }
