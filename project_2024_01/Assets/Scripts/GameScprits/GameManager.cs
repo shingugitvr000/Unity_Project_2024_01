@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
         PLAY = 10,
         STOP,
         LEVELUPUI = 20,
+        OPTIONUI,
         END = 30
     }
 

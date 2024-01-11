@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
+using static GameManager;
 
 public class GameUIManager : MonoBehaviour
 {
@@ -53,7 +55,20 @@ public class GameUIManager : MonoBehaviour
     }
     public void GameStopPanelOnOff()
     {
-        if(gameUIOnoffFlag == true)                     //False <-> true 바뀌는 토글키로 생성 
+        if (AudioManager.instance.AudioPanelFlag == false && gameUIOnoffFlag == true
+            && GameManager.Instance.gameStation == GameManager.GAMESTATION.OPTIONUI)
+        {
+            gameUIOnoffFlag = false;
+            GameManager.Instance.gameStation = GameManager.GAMESTATION.PLAY;        //게임의 상태를 바꿔준다. 
+        }
+        else if (GameManager.Instance.gameStation == GameManager.GAMESTATION.OPTIONUI && gameUIOnoffFlag == true)
+        {
+            gameUIOnoffFlag = false;
+            AudioManager.instance.PanelOnOff(false);
+            GameManager.Instance.gameStation = GameManager.GAMESTATION.STOP;
+        }
+        else if (GameManager.Instance.gameStation != GameManager.GAMESTATION.OPTIONUI && gameUIOnoffFlag == true
+            && AudioManager.instance.AudioPanelFlag != false)                     //False <-> true 바뀌는 토글키로 생성 
         {
             gameUIOnoffFlag = false;
             GameManager.Instance.gameStation = GameManager.GAMESTATION.PLAY;        //게임의 상태를 바꿔준다. 
@@ -65,6 +80,25 @@ public class GameUIManager : MonoBehaviour
         }
 
         gameUIPanel.SetActive(gameUIOnoffFlag);
+    }
+
+    //패널 관련 함수 제작
+    public void GameUIPlaybtn()                          
+    {
+        AudioManager.instance.PlaySFX("Button_Down");
+        GameManager.Instance.gameStation = GameManager.GAMESTATION.PLAY;
+        gameUIPanel.SetActive(false);
+    }
+    public void GameUIOptionbtn()
+    {
+        AudioManager.instance.PlaySFX("Button_Down");
+        GameManager.Instance.gameStation = GameManager.GAMESTATION.OPTIONUI;
+        AudioManager.instance.PanelOnOff(true);
+    }
+    public void GameUITitlebtn()                //타이틀로 돌아가는 함수 
+    {
+        AudioManager.instance.PlaySFX("Button_Down");
+        SceneManager.LoadScene("TitleScene");
     }
 
 }

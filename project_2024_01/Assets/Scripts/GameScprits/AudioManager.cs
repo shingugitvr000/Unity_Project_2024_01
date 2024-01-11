@@ -34,6 +34,7 @@ public class AudioManager : MonoBehaviour
 
     //오디오 패널 설정
     public GameObject AudioPanel;
+    public bool AudioPanelFlag = false;                 //페널이 OnOff 되어있는지 여부를 검사
 
     private void Awake()
     {
@@ -92,6 +93,7 @@ public class AudioManager : MonoBehaviour
 
     public void PanelOnOff(bool type)                                   //오디오 옵션 패널
     {
+        AudioPanelFlag = type;                                          //들어온 타입과 동기화
         AudioPanel.SetActive(type);                                     //패널을 키고 끈다. 
     }
 }
