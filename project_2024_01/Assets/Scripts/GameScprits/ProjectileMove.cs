@@ -35,6 +35,7 @@ public class ProjectileMove : MonoBehaviour         //총알 클래스 설정
             {
                 Instantiate(VFX_WW_Explosion, point, Quaternion.identity);   //적군이 파괴되는 포인트에 이펙트 추가
                 other.gameObject.GetComponent<EnemyController>().DropItems();   //적군이 파괴되기 이전에 드랍 아이템 추가 
+                AudioManager.instance.PlaySFX("Explosion");
                 Destroy(other.gameObject);               
             }
         }
@@ -50,6 +51,7 @@ public class ProjectileMove : MonoBehaviour         //총알 클래스 설정
             if (GameManager.Instance.currentHp <= 0)
             {
                 Instantiate(VFX_WW_Explosion, point, Quaternion.identity);   //플레이어가 파괴 되는 이펙트를 준다. 
+                AudioManager.instance.PlaySFX("Explosion");
                 Destroy(other.gameObject);
             }
         }

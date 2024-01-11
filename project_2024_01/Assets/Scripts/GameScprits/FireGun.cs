@@ -24,6 +24,7 @@ public class FireGun : MonoBehaviour
         if (Time.time > nextFireTime)
         {
             nextFireTime = Time.time + 1f / fireRate;       //½Ã°£´ëºñ ½î´Â È½¼ö 
+            AudioManager.instance.PlaySFX("Shoot_01");
             Instantiate(projectile, firePoint.transform.position, firePoint.transform.rotation);
         }
     }
